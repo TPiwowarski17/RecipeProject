@@ -1,10 +1,12 @@
 package com.piwowarski.models;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
 @Data
+@EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Notes {
 
@@ -15,8 +17,5 @@ public class Notes {
     private Recipe recipe;
     @Lob  //more than 255 characters
     private String recipeNotes;
-
-    public Notes() {
-    }
 
 }
