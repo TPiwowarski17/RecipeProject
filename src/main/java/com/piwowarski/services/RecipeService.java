@@ -1,11 +1,15 @@
 package com.piwowarski.services;
 
+import com.piwowarski.DTO.RecipeDto;
 import com.piwowarski.models.Recipe;
-import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 
 public interface RecipeService {
     Set<Recipe> getRecipes();
+
+    Recipe findById(Long l);
+
+    RecipeDto saveRecipeDto(RecipeDto recipeDto);
 }
