@@ -18,7 +18,7 @@ public class UnitOfMeasureDtoToUnitOfMeasure implements Converter<UnitOfMeasureD
         }
         final UnitOfMeasure uom = new UnitOfMeasure();
         uom.setId(unitOfMeasureDto.getId());
-        uom.setUom(unitOfMeasureDto.getDescription());
+        uom.setDescription(unitOfMeasureDto.getDescription());
         return uom;
     }
 }

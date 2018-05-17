@@ -38,11 +38,23 @@ public class RecipeServiceImpl implements RecipeService {
         return recipeOptional.orElseThrow(RuntimeException::new);
     }
 
+
     @Override
     @Transactional
     public RecipeDto saveRecipeDto(RecipeDto recipeDto) {
         Recipe detachedRecipe = recipeDtoToRecipe.convert(recipeDto);
         Recipe savedRecipe = recipeRepository.save(detachedRecipe);
         return recipeToRecipeDto.convert(savedRecipe);
+    }
+
+    @Override
+    @Transactional
+    public RecipeDto findDtoById(Long id) {
+        return recipeToRecipeDto.convert(findById(id));
+    }
+
+    @Override
+    public void deleteById(Long idToDelete) {
+        recipeRepository.deleteById(idToDelete);
     }
 }

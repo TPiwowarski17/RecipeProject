@@ -19,7 +19,7 @@ public class UniTOfMeasureToUnitOfMeasureDto implements Converter<UnitOfMeasure,
         }
         final UnitOfMeasureDto uomd = new UnitOfMeasureDto();
         uomd.setId(unitOfMeasure.getId());
-        uomd.setDescription(unitOfMeasure.getUom());
+        uomd.setDescription(unitOfMeasure.getDescription());
         return uomd;
     }
 }

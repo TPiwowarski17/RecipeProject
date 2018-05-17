@@ -18,7 +18,7 @@ public class ShowController {
         this.recipeRepository = recipeRepository;
     }
 
-    @RequestMapping("/recipe/show/{id}")
+    @RequestMapping("/recipe/{id}/show")
     public String showRecipe(@PathVariable(name = "id") Long id, Model model) {
         Recipe recipe = recipeRepository.findById(id).orElseThrow(NullPointerException::new);
         model.addAttribute("recipe", recipe);
