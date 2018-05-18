@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingredient Show</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+          crossorigin="anonymous" th:href="@{/webjars/bootstrap/4.1.0/css/bootstrap.min.css}"/>
+
+    <script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+            integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+            crossorigin="anonymous" th:href="@{/webjars/bootstrap/4.1.0/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container mt-4">
+    <div class="row justify-content-md-center">
+        <div class="col-md-9 border border-primary rounded-bottom">
+            <div class="row border-bottom border-primary bg-primary">
+                <h1>Ingredients</h1>
+            </div>
+            <div class="table-responsive mt-4">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Id</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td th:text="${ingredient.id}">123</td>
+                        <td th:text="${ingredient.amount} + ' ' + ${ingredient.uom.getDescription()} + ' ' + ${ingredient.description}">
+                            asfdaf
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
