@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Ingredient List</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -20,6 +20,7 @@
         <div class="col-md-9 border border-primary rounded-bottom">
             <div class="row border-bottom border-primary bg-primary">
                 <h1>Ingredients</h1>
+                <a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/new'}" class="btn btn-dark">New</a>
             </div>
             <div class="table-responsive" th:if="${not #lists.isEmpty(recipe.ingredients)}">
                 <table class="table table-hover ">
