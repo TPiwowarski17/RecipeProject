@@ -2,20 +2,28 @@ package com.piwowarski.controllers;
 
 
 import com.piwowarski.DTO.RecipeDto;
+import com.piwowarski.models.Recipe;
+import com.piwowarski.repositories.RecipeRepository;
+import com.piwowarski.services.ImageService;
 import com.piwowarski.services.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ImageControllerTest {
     @Mock
@@ -23,6 +31,9 @@ public class ImageControllerTest {
 
     @Mock
     RecipeService recipeService;
+
+    @Mock
+    RecipeRepository recipeRepository;
 
     ImageController imageController;
 
@@ -50,16 +61,53 @@ public class ImageControllerTest {
         verify(recipeService, times(1)).findDtoById(anyLong());
     }
 
+
     @Test
     public void handleImagePost() throws Exception {
 
+        Long id = 1L;
         MockMultipartFile multipartFile =
-                new MockMultipartFile("imagefile", "testing.txt", "text/plain", "Ala ma kota".getBytes());
+                new MockMultipartFile("imageFile", "testing.txt", "text/plain", "Ala ma kota".getBytes());
 
-        mockMvc.perform(multipart("/recipe/1/image").file(multipartFile))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(header().string("Location", "/recipe/1/show"));
+        Recipe recipe = new Recipe();
+        recipe.setId(id);
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
 
-        verify(imageService, times(1)).saveImageFile(anyLong(), any());
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        ArgumentCaptor<Recipe> argumentCaptor = ArgumentCaptor.forClass(Recipe.class);
+
+        imageService.saveImageFile(id, multipartFile);
+
+        verify(recipeRepository, times(1)).save(argumentCaptor.capture());
+        Recipe savedRecipe = argumentCaptor.getValue();
+        assertEquals(multipartFile.getBytes().length, savedRecipe.getImg().length);
     }
+
+    @Test
+    public void renderImageFromDB() throws Exception {
+
+        RecipeDto dto = new RecipeDto();
+        dto.setId(1L);
+
+        String s = "Ala ma kota";
+        Byte[] bytes = new Byte[s.getBytes().length];
+
+        int i = 0;
+
+        for (byte b : s.getBytes()) {
+            bytes[i++] = b;
+        }
+
+        dto.setImg(bytes);
+        when(recipeService.findDtoById(anyLong())).thenReturn(dto);
+
+        MockHttpServletResponse response = mockMvc.perform(get("/recipe/1/recipeimage"))
+                .andExpect(status().isOk())
+                .andReturn().getResponse();
+        byte[] responseBytes = response.getContentAsByteArray();
+
+        assertEquals(s.getBytes().length, responseBytes.length);
+    }
+
 }

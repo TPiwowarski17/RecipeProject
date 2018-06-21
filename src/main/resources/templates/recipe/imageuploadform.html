@@ -28,7 +28,7 @@
                             <div class="col-md-10">
                                 <form action="http:\\localhost" method="post" enctype="multipart/form-data"
                                       th:action="@{'/recipe/' + ${recipe.getId()} + '/image'}">
-                                    <input id="imagefile" name="imagefile" type="file" class="form-control-file"/>
+                                    <input id="imageFile" name="imageFile" type="file" class="form-control-file"/>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                             </div>

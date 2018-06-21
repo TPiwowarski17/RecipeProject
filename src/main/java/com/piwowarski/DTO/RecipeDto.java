@@ -21,6 +21,7 @@ public class RecipeDto {
     private String url;
     private String directions;
     private Set<IngredientDto> ingredients = new HashSet<>();
+    private Byte[] img;
     private Difficulty difficulty;
     private NotesDto notes;
     private Set<CategoryDto> categories = new HashSet<>();

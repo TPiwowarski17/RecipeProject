@@ -38,6 +38,7 @@ public class RecipeToRecipeDto implements Converter<Recipe, RecipeDto> {
         command.setServings(source.getServings());
         command.setSource(source.getSource());
         command.setUrl(source.getUrl());
+        command.setImg(source.getImg());
         command.setNotes(notesConverter.convert(source.getNotes()));
 
         if (source.getCategories() != null && source.getCategories().size() > 0) {

@@ -21,6 +21,8 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h1 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h1>
+                        <a class="btn btn-primary" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/image'}">Change
+                            Image</a>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -38,7 +40,7 @@
                             </div>
                             <div class="col-md-6">
                                 <img src="../../static/images/guacamole-horiz-a-1600.jpg"
-                                     th:src="@{/images/guacamole-horiz-a-1600.jpg}"
+                                     th:src="@{'/recipe/' + ${recipe.id} + '/recipeimage'}"
                                      width="200" height="200">
                             </div>
                         </div>
